@@ -7,9 +7,7 @@ import org.hyperledger.fabric.contract.ContractInterface;
 import org.hyperledger.fabric.contract.annotation.Contract;
 import org.hyperledger.fabric.contract.annotation.Default;
 import org.hyperledger.fabric.contract.annotation.Transaction;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Contract(name = "MainContract")
@@ -29,7 +27,7 @@ public class MainContract implements ContractInterface{
 
         krs.setDosenPaId(dosenPaId);
         krs.setMahasiswaId(mahasiswaId);
-        krs.setKuliahId(kuliahIdJson);
+        krs.parseKuliahId(kuliahIdJson);
         krs.setSemester(semester);
         krs.setDisetujuiDosenPa(false);
 
