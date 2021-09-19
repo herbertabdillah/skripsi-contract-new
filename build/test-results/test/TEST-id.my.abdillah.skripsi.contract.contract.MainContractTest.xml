@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="id.my.abdillah.skripsi.contract.contract.MainContractTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-09-19T06:04:09" hostname="t450" time="1.467">
-  <properties/>
-  <testcase name="ajukanKrs()" classname="id.my.abdillah.skripsi.contract.contract.MainContractTest" time="1.43"/>
-  <testcase name="setujuiKrs()" classname="id.my.abdillah.skripsi.contract.contract.MainContractTest" time="0.02"/>
-  <testcase name="lihatKrs()" classname="id.my.abdillah.skripsi.contract.contract.MainContractTest" time="0.015"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
