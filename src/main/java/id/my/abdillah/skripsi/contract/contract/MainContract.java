@@ -1,14 +1,11 @@
 package id.my.abdillah.skripsi.contract.contract;
 
 import id.my.abdillah.skripsi.contract.model.Krs;
-
 import org.hyperledger.fabric.contract.Context;
 import org.hyperledger.fabric.contract.ContractInterface;
 import org.hyperledger.fabric.contract.annotation.Contract;
 import org.hyperledger.fabric.contract.annotation.Default;
 import org.hyperledger.fabric.contract.annotation.Transaction;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Contract(name = "MainContract")
 @Default
@@ -37,27 +34,23 @@ public class MainContract implements ContractInterface{
         krs.setTanggalDiajukan(date);
         krs.setTanggalDisetujui("");
 
-        String jsonString = krs.toJsonString();
-//        System.out.println(jsonString);
-        ctx.getStub().putState(krsId, jsonString.getBytes(UTF_8));
+        ctx.getStub().putState(krsId, krs.getJsonStringBytes());
     }
 
     @Transaction
     public void setujuiKrs(Context ctx,
                            String krsId) {
-        Krs krs = Krs.fromJSONString(new String(ctx.getStub().getState(krsId), UTF_8));
+        Krs krs = Krs.fromJSONString(ctx.getStub().getState(krsId));
 //        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         String date = "30/6/2021";
         krs.setTanggalDisetujui(date);
         krs.setDisetujuiDosenPa(true);
-        String jsonString = krs.toJsonString();
-        byte[] jsonByte = jsonString.getBytes(UTF_8);
-        ctx.getStub().putState(krsId, jsonByte);
+        ctx.getStub().putState(krsId, krs.getJsonStringBytes());
     }
 
     @Transaction(intent = Transaction.TYPE.EVALUATE)
     public Krs lihatKrs(Context ctx, String krsId) {
-        Krs krs = Krs.fromJSONString(new String(ctx.getStub().getState(krsId), UTF_8));
+        Krs krs = Krs.fromJSONString(ctx.getStub().getState(krsId));
 
         return krs;
     }

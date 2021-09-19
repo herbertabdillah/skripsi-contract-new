@@ -1,6 +1,7 @@
 package id.my.abdillah.skripsi.contract.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -9,7 +10,7 @@ import org.hyperledger.fabric.contract.annotation.DataType;
 import org.hyperledger.fabric.contract.annotation.Property;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 @DataType
@@ -59,7 +60,7 @@ public class Krs {
 
     }
 
-    //TODO: Refactor
+    //TODO: Refactor to Basemodel
     public String toJsonString() {
         ObjectMapper om = new ObjectMapper();
         String jsonString = null;
@@ -69,6 +70,10 @@ public class Krs {
             e.printStackTrace();
         }
         return jsonString;
+    }
+
+    public static Krs fromJSONString(byte[] bytes) {
+        return fromJSONString(new String(bytes, StandardCharsets.UTF_8));
     }
 
     public static Krs fromJSONString(String json) {
@@ -81,6 +86,11 @@ public class Krs {
         }
         JSONObject krsJo = new JSONObject(json);
         return krs;
+    }
+
+    @JsonIgnore
+    public byte[] getJsonStringBytes() {
+        return toJsonString().getBytes(StandardCharsets.UTF_8);
     }
 }
 
