@@ -14,7 +14,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Default
 public class MainContract implements ContractInterface{
     public MainContract(){}
-    @Transaction()
+    @Transaction
     public void ajukanKrs(Context ctx,
                           String mahasiswaId,
                           String dosenPaId,
@@ -42,7 +42,7 @@ public class MainContract implements ContractInterface{
         ctx.getStub().putState(krsId, jsonString.getBytes(UTF_8));
     }
 
-    @Transaction()
+    @Transaction
     public void setujuiKrs(Context ctx,
                            String krsId) {
         Krs krs = Krs.fromJSONString(new String(ctx.getStub().getState(krsId), UTF_8));

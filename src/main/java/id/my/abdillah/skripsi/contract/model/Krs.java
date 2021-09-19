@@ -12,40 +12,40 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-@DataType()
-@Data()
-@NoArgsConstructor()
-// TODO: 6/30/2021 pake jackson atau gson untuk serialize json otomatis
+@DataType
+@Data
+@NoArgsConstructor
 
 public class Krs {
-    @Property()
+    @Property
     private String dosenPaId;
 
-    @Property()
+    @Property
     private ArrayList<String> kuliahId;
 
-    @Property()
+    @Property
     private int semester;
 
-    @Property()
+    @Property
     private int jumlahSks;
 
-    @Property()
+    @Property
     private boolean disetujuiDosenPa;
 
-    @Property()
+    @Property
     private String tanggalDiajukan;
 
-    @Property()
+    @Property
     private String tanggalDisetujui;
 
-    @Property()
+    @Property
     private String mahasiswaId;
 
     public void parseKuliahId(String kuliahIdJson) {
         JSONArray ja = new JSONArray(kuliahIdJson);
         this.parseKuliahId(ja);
     }
+
     public void parseKuliahId(JSONArray ja) {
 
         ArrayList<String> kuliahId = new ArrayList<>();
@@ -59,6 +59,7 @@ public class Krs {
 
     }
 
+    //TODO: Refactor
     public String toJsonString() {
         ObjectMapper om = new ObjectMapper();
         String jsonString = null;
@@ -67,11 +68,6 @@ public class Krs {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-//        JSONObject jo = new JSONObject(this);
-//        if(this.tanggalDisetujui == null) {
-//            jo.put("tanggalDisetujui", JSONObject.NULL);
-//        }
-//        String jsonString = jo.toString();
         return jsonString;
     }
 
@@ -80,22 +76,10 @@ public class Krs {
         Krs krs = null;
         try {
             krs = om.readValue(json, Krs.class);
-//            krs = om.readValue(json, krs.getClass());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         JSONObject krsJo = new JSONObject(json);
-//        Krs krs = new Krs();
-//        krs.setDisetujuiDosenPa(krsJo.getBoolean("disetujuiDosenPa"));
-//        krs.setSemester(krsJo.getInt("semester"));
-//        krs.setMahasiswaId(krsJo.getString("mahasiswaId"));
-//        krs.setDosenPaId(krsJo.getString("dosenPaId"));
-//        krs.setKuliahId(krsJo.getJSONArray("kuliahId"));
-//        if(!krsJo.isNull("tanggalDisetujui")) {
-//            krs.setTanggalDisetujui(krsJo.getString("tanggalDisetujui"));
-//        }
-//        krs.setTanggalDiajukan(krsJo.getString("tanggalDiajukan"));
-
         return krs;
     }
 }
