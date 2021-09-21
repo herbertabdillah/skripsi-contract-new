@@ -7,7 +7,7 @@ import org.hyperledger.fabric.contract.annotation.Contract;
 import org.hyperledger.fabric.contract.annotation.Default;
 import org.hyperledger.fabric.contract.annotation.Transaction;
 
-@Contract(name = "PerkuliahanContract")
+@Contract(name = "IjazahContract")
 @Default
 public class IjazahContract implements ContractInterface{
     public IjazahContract(){}

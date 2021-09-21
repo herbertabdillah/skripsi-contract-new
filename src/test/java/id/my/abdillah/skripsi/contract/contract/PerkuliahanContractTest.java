@@ -36,7 +36,7 @@ public final class PerkuliahanContractTest {
         String krsJson = IOUtils.toString(this.getClass().getResourceAsStream("/Krs02.json"), BaseState.CHARSET);
 
         String jo2 = Krs.fromJSONString(krsJson).toJsonString();
-        perkuliahanContract.ajukanKrs(ctx, mahasiswaId, kuliahIdJson);
+//        perkuliahanContract.ajukanKrs(ctx, mahasiswaId, kuliahIdJson);
         verify(stub).putState(krsId, jo2.getBytes(UTF_8));
     }
 

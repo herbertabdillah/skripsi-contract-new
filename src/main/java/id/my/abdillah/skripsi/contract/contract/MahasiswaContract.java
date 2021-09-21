@@ -17,6 +17,7 @@ public class MahasiswaContract implements ContractInterface{
     @Transaction
     public void tambahMahasiswa(Context ctx,
                                 String mahasiswaId,
+                                String programStudiId,
                                 String dosenPaId,
                                 String status,
                                 int tahunMasuk
@@ -25,6 +26,7 @@ public class MahasiswaContract implements ContractInterface{
         mahasiswa.setDosenPaId(dosenPaId);
         mahasiswa.setStatus(StatusMahasiswa.valueOf(status));
         mahasiswa.setTahunMasuk(tahunMasuk);
+        mahasiswa.setProgramStudiId(programStudiId);
 
         ctx.getStub().putState(mahasiswaId, mahasiswa.getJsonStringBytes());
     }

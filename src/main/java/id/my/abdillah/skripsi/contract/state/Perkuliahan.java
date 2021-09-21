@@ -1,6 +1,7 @@
 package id.my.abdillah.skripsi.contract.state;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hyperledger.fabric.contract.annotation.DataType;
 import org.hyperledger.fabric.contract.annotation.Property;
@@ -8,7 +9,7 @@ import org.hyperledger.fabric.contract.annotation.Property;
 @DataType
 @Data
 @NoArgsConstructor
-
+@EqualsAndHashCode(callSuper=false)
 public class Perkuliahan extends BaseState {
     @Property
     private String programStudiId;

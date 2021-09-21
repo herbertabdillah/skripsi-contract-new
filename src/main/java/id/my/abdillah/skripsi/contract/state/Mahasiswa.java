@@ -2,6 +2,7 @@ package id.my.abdillah.skripsi.contract.state;
 
 import id.my.abdillah.skripsi.contract.dto.StatusMahasiswa;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hyperledger.fabric.contract.annotation.DataType;
 import org.hyperledger.fabric.contract.annotation.Property;
@@ -9,7 +10,7 @@ import org.hyperledger.fabric.contract.annotation.Property;
 @DataType
 @Data
 @NoArgsConstructor
-
+@EqualsAndHashCode(callSuper=false)
 public class Mahasiswa extends BaseState {
     @Property
     private String dosenPaId;

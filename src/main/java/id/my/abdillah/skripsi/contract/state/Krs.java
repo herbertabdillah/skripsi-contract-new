@@ -13,6 +13,7 @@ import java.util.ArrayList;
 @DataType
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class Krs extends BaseState {
     @Property
     private ArrayList<String> kuliahId;

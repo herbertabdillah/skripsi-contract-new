@@ -2,6 +2,7 @@ package id.my.abdillah.skripsi.contract.state;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hyperledger.fabric.contract.annotation.DataType;
 import org.hyperledger.fabric.contract.annotation.Property;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 @DataType
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class Ijazah extends BaseState {
     @Property
     private ArrayList<String> kuliahId;
