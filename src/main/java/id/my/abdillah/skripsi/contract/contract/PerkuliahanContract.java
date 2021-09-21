@@ -1,20 +1,20 @@
 package id.my.abdillah.skripsi.contract.contract;
 
-import id.my.abdillah.skripsi.contract.model.Krs;
+import id.my.abdillah.skripsi.contract.state.Krs;
 import org.hyperledger.fabric.contract.Context;
 import org.hyperledger.fabric.contract.ContractInterface;
 import org.hyperledger.fabric.contract.annotation.Contract;
 import org.hyperledger.fabric.contract.annotation.Default;
 import org.hyperledger.fabric.contract.annotation.Transaction;
 
-@Contract(name = "MainContract")
+@Contract(name = "PerkuliahanContract")
 @Default
-public class MainContract implements ContractInterface{
-    public MainContract(){}
+public class PerkuliahanContract implements ContractInterface{
+    public PerkuliahanContract(){}
     @Transaction
     public void ajukanKrs(Context ctx,
                           String mahasiswaId,
-                          String dosenPaId,
+//                          String dosenPaId,
                           String kuliahIdJson
     ) {
 
@@ -22,7 +22,7 @@ public class MainContract implements ContractInterface{
         String krsId = "krs." + mahasiswaId + "." + Integer.toString(semester);
         Krs krs = new Krs();
 
-        krs.setDosenPaId(dosenPaId);
+//        krs.setDosenPaId(dosenPaId);
         krs.setMahasiswaId(mahasiswaId);
         krs.parseKuliahId(kuliahIdJson);
         krs.setSemester(semester);

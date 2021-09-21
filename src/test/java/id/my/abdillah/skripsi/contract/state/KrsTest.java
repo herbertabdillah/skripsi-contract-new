@@ -1,38 +1,25 @@
-package id.my.abdillah.skripsi.contract.model;
+package id.my.abdillah.skripsi.contract.state;
 
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import java.nio.charset.StandardCharsets;
-
-import id.my.abdillah.skripsi.contract.model.Krs;
-import org.hyperledger.fabric.contract.Context;
-import org.hyperledger.fabric.shim.ChaincodeStub;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public final class KrsTest {
     @Test
-    public void serialization() {
-        String krsJson = "{" +
-                "\"dosenPaId\":\"d1\"," +
-                "\"kuliahId\":[\"k1\", \"k2\"]," +
-                "\"semester\":1," +
-                "\"jumlahSks\":6," +
-                "\"disetujuiDosenPa\":true," +
-                "\"tanggalDiajukan\":\"29/6/2021\"," +
-                "\"tanggalDisetujui\":\"30/6/2021\"," +
-                "\"mahasiswaId\":\"m1\"" +
-                "}";
+    public void serialization() throws IOException {
+        String krsJson = IOUtils.toString(this.getClass().getResourceAsStream("/Krs01.json"), BaseState.CHARSET);
         Krs krs = Krs.fromJSONString(krsJson);
-        assertEquals(krs.getDosenPaId(), "d1");
+
         assertEquals(krs.getSemester(), 1);
         assertEquals(krs.getJumlahSks(), 6);
         assertTrue(krs.isDisetujuiDosenPa());
