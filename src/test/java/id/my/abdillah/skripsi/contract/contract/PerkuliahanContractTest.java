@@ -19,6 +19,8 @@ import org.hyperledger.fabric.shim.ChaincodeStub;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public final class PerkuliahanContractTest {
@@ -52,16 +54,23 @@ public final class PerkuliahanContractTest {
         ChaincodeStub stub = mock(ChaincodeStub.class);
         when(ctx.getStub()).thenReturn(stub);
 
-        String mahasiswaId = "m1";
-        String kuliahIdJson = "[\"k1\", \"k2\"]";
+        String kuliahId = "k1";
+        Perkuliahan perkuliahan = Perkuliahan.fromJSONString(IOUtils.toString(this.getClass().getResourceAsStream("/Perkuliahan01.json"), BaseState.CHARSET));
+        when(ctx.getStub().getState(kuliahId)).thenReturn(perkuliahan.getJsonStringBytes());
+
+        String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         int semester = 1;
+        String mahasiswaId = "m1";
+        String kuliahIdJson = "[\"k1\"]";
         String krsId = "krs." + mahasiswaId + "." + Integer.toString(semester);
 
-        String krsJson = IOUtils.toString(this.getClass().getResourceAsStream("/Krs02.json"), BaseState.CHARSET);
+        String krsRawJson = IOUtils.toString(this.getClass().getResourceAsStream("/Krs02.json"), BaseState.CHARSET);
+        Krs krs = Krs.fromJSONString(krsRawJson);
+        krs.setTanggalDiajukan(date);
+        String krsJson = krs.toJsonString();
 
-        String jo2 = Krs.fromJSONString(krsJson).toJsonString();
-//        perkuliahanContract.ajukanKrs(ctx, mahasiswaId, kuliahIdJson);
-        verify(stub).putState(krsId, jo2.getBytes(UTF_8));
+        perkuliahanContract.ajukanKrs(ctx, krsId, mahasiswaId, semester, kuliahIdJson);
+        verify(stub).putState(krsId, krsJson.getBytes(UTF_8));
     }
 
     @Test
@@ -73,15 +82,22 @@ public final class PerkuliahanContractTest {
         String mahasiswaId = "m1";
         int semester = 1;
         String krsId = "krs." + mahasiswaId + "." + Integer.toString(semester);
+        String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 
-        String krsJson = IOUtils.toString(this.getClass().getResourceAsStream("/Krs02.json"), BaseState.CHARSET);
+        String krsJsonRawBelumSetuju = IOUtils.toString(this.getClass().getResourceAsStream("/Krs02.json"), BaseState.CHARSET);
+        String krsJsonRawSetuju = IOUtils.toString(this.getClass().getResourceAsStream("/Krs01.json"), BaseState.CHARSET);
 
-        String krsJson2 = IOUtils.toString(this.getClass().getResourceAsStream("/Krs01.json"), BaseState.CHARSET);
+        Krs krsSetuju = Krs.fromJSONString(krsJsonRawSetuju);
+        krsSetuju.setTanggalDisetujui(date);
+        String krsJsonSetuju = krsSetuju.toJsonString();
+        Krs krsBelumSetuju = Krs.fromJSONString(krsJsonRawBelumSetuju);
+        String krsJsonBelumSetuju = krsBelumSetuju.toJsonString();
 
-        String jo2 = Krs.fromJSONString(krsJson2).toJsonString();
-        when(stub.getState(krsId)).thenReturn(krsJson.getBytes(UTF_8));
+//        System.out.println(krsJsonSetuju);
+
+        when(stub.getState(krsId)).thenReturn(krsJsonBelumSetuju.getBytes(UTF_8));
         perkuliahanContract.setujuiKrs(ctx, krsId);
-        verify(stub).putState(krsId, jo2.getBytes(UTF_8));
+        verify(stub).putState(krsId, krsJsonSetuju.getBytes(UTF_8));
     }
 
     @Test

@@ -52,13 +52,20 @@ public class PerkuliahanContract implements ContractInterface{
         krs.parseKuliahId(kuliahIdJson);
         krs.setSemester(semester);
         krs.setDisetujuiDosenPa(false);
-//        krs.setJumlahSks(jumlahSks);
 
         String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 //        String date = "29/6/2021";
 
         krs.setTanggalDiajukan(date);
         krs.setTanggalDisetujui("");
+
+        int sks = 0;
+        for(String kuliahId : krs.getKuliahId()) {
+            Perkuliahan perkuliahan = Perkuliahan.fromJSONString(ctx.getStub().getState(kuliahId));
+            sks += perkuliahan.getJumlahSks();
+        }
+
+        krs.setJumlahSks(sks);
 
         ctx.getStub().putState(krsId, krs.getJsonStringBytes());
     }
