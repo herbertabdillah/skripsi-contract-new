@@ -1,5 +1,7 @@
 package id.my.abdillah.skripsi.contract.contract;
 
+import id.my.abdillah.skripsi.contract.dto.HasilPerkuliahanDto;
+import id.my.abdillah.skripsi.contract.state.Khs;
 import id.my.abdillah.skripsi.contract.state.Krs;
 import id.my.abdillah.skripsi.contract.state.Perkuliahan;
 import org.hyperledger.fabric.contract.Context;
@@ -9,6 +11,7 @@ import org.hyperledger.fabric.contract.annotation.Default;
 import org.hyperledger.fabric.contract.annotation.Transaction;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Contract(name = "PerkuliahanContract")
@@ -78,14 +81,56 @@ public class PerkuliahanContract implements ContractInterface{
 //        String date = "30/6/2021";
         krs.setTanggalDisetujui(date);
         krs.setDisetujuiDosenPa(true);
-        ctx.getStub().putState(krsId, krs.getJsonStringBytes());
-    }
 
+        String khsId = "khs";
+
+        Khs khs = new Khs();
+        khs.setKrsId(krsId);
+        khs.setSemester(krs.getSemester());
+        khs.setJumlahSks(krs.getJumlahSks());
+        khs.setMahasiswaId(krs.getMahasiswaId());
+        ArrayList<HasilPerkuliahanDto> hasilPerkuliahanDto = new ArrayList<>();
+        for(String k : krs.getKuliahId()) {
+            Perkuliahan p = Perkuliahan.fromJSONString(ctx.getStub().getState(k));
+            HasilPerkuliahanDto h = new HasilPerkuliahanDto();
+            h.setKuliahId(k);
+            h.setNilai(0);
+            h.setSks(p.getJumlahSks());
+        }
+        khs.setHasilPerkuliahanDto(hasilPerkuliahanDto);
+
+
+        ctx.getStub().putState(krsId, krs.getJsonStringBytes());
+        ctx.getStub().putState(khsId, khs.getJsonStringBytes());
+    }
+    @Transaction
+    public void nilaiKhs(Context ctx,
+                         String khsId,
+                         String kuliahId,
+                         double nilai
+    ) {
+        Khs khs = Khs.fromJSONString(ctx.getStub().getState(khsId));
+        for(HasilPerkuliahanDto h : khs.getHasilPerkuliahanDto()) {
+            if(kuliahId.equals(h.getKuliahId())) {
+                h.setNilai(nilai);
+                break;
+            }
+        }
+
+        ctx.getStub().putState(khsId, khs.getJsonStringBytes());
+    }
     @Transaction(intent = Transaction.TYPE.EVALUATE)
     public Krs lihatKrs(Context ctx, String krsId) {
         Krs krs = Krs.fromJSONString(ctx.getStub().getState(krsId));
 
         return krs;
+    }
+
+    @Transaction(intent = Transaction.TYPE.EVALUATE)
+    public Khs lihatKhs(Context ctx, String khsId) {
+        Khs khs = Khs.fromJSONString(ctx.getStub().getState(khsId));
+
+        return khs;
     }
 
     @Transaction(intent = Transaction.TYPE.EVALUATE)

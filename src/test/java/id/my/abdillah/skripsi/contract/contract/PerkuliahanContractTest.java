@@ -10,7 +10,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import id.my.abdillah.skripsi.contract.dto.HasilPerkuliahanDto;
 import id.my.abdillah.skripsi.contract.state.BaseState;
+import id.my.abdillah.skripsi.contract.state.Khs;
 import id.my.abdillah.skripsi.contract.state.Krs;
 import id.my.abdillah.skripsi.contract.state.Perkuliahan;
 import org.apache.commons.io.IOUtils;
@@ -20,6 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -97,7 +100,24 @@ public final class PerkuliahanContractTest {
 
         when(stub.getState(krsId)).thenReturn(krsJsonBelumSetuju.getBytes(UTF_8));
         perkuliahanContract.setujuiKrs(ctx, krsId);
+
+        ArrayList<HasilPerkuliahanDto> hasilPerkuliahanDto = new ArrayList<>();
+        for(String k : krsSetuju.getKuliahId()) {
+            Perkuliahan p = Perkuliahan.fromJSONString(ctx.getStub().getState(k));
+            HasilPerkuliahanDto h = new HasilPerkuliahanDto();
+            h.setKuliahId(k);
+            h.setNilai(0);
+            h.setSks(p.getJumlahSks());
+        }
+        Khs khs = new Khs();
+        String khsId = "asdf";
+        khs.setKrsId(krsId);
+        khs.setSemester(krsSetuju.getSemester());
+        khs.setJumlahSks(krsSetuju.getJumlahSks());
+        khs.setMahasiswaId(krsSetuju.getMahasiswaId());
+
         verify(stub).putState(krsId, krsJsonSetuju.getBytes(UTF_8));
+        verify(stub).putState(khsId, krsJsonSetuju.getBytes(UTF_8));
     }
 
     @Test
