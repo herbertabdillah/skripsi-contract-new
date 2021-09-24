@@ -1,8 +1,8 @@
 {
-  "programStudiId": "uinjkt.fakultas.123qwe.programstudi.123qwe",
+  "programStudiId": "uinjkt.prodi.1",
   "nama": "Dasar dasar pemrograman",
   "kode": "IF001",
-  "dosenId": "uinjkt.dosen.123qwe",
+  "dosenId": "uinjkt.dosen.1",
   "tahunAjaran": "2021/2022",
   "semester": 1,
   "jumlahSks": 6

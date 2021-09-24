@@ -25,8 +25,8 @@ public final class ProgramStudiContractTest {
 
         String nama = "Teknik Informatika";
         String fakultas = "Sains dan Teknologi";
-        String kepalaProgramStudiId = "uinjkt.dosen.123qwe";
-        String programStudiId = "uinjkt.fakultas.123qwe.programstudi.123qwe";
+        String kepalaProgramStudiId = "uinjkt.dosen.1";
+        String programStudiId = "uinjkt.prodi.1";
 
         String programStudiJsonRaw = IOUtils.toString(this.getClass().getResourceAsStream("/ProgramStudi01.json"), BaseState.CHARSET);
         String programStudiJson = ProgramStudi.fromJSONString(programStudiJsonRaw).toJsonString();
@@ -42,7 +42,7 @@ public final class ProgramStudiContractTest {
         ChaincodeStub stub = mock(ChaincodeStub.class);
         when(ctx.getStub()).thenReturn(stub);
 
-        String programStudiId = "uinjkt.fakultas.123qwe.programstudi.123qwe";
+        String programStudiId = "uinjkt.prodi.1";
         String programStudiJsonRaw = IOUtils.toString(this.getClass().getResourceAsStream("/ProgramStudi01.json"), BaseState.CHARSET);
 
         when(stub.getState(programStudiId)).thenReturn(programStudiJsonRaw.getBytes(UTF_8));

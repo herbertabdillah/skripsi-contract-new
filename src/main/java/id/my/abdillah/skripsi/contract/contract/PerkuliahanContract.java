@@ -13,10 +13,12 @@ import org.hyperledger.fabric.contract.annotation.Transaction;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 
 @Contract(name = "PerkuliahanContract")
 @Default
 public class PerkuliahanContract implements ContractInterface{
+    private final static Logger LOG = Logger.getLogger(PerkuliahanContract.class.getName());
     public PerkuliahanContract(){}
     @Transaction
     public void tambahPerkuliahan(Context ctx,
@@ -82,7 +84,8 @@ public class PerkuliahanContract implements ContractInterface{
         krs.setTanggalDisetujui(date);
         krs.setDisetujuiDosenPa(true);
 
-        String khsId = "khs";
+        String[] split = krsId.split("\\.");
+        String khsId = split[0] + "." + "khs" + "." + split[2];
 
         Khs khs = new Khs();
         khs.setKrsId(krsId);
@@ -96,11 +99,14 @@ public class PerkuliahanContract implements ContractInterface{
             h.setKuliahId(k);
             h.setNilai(0);
             h.setSks(p.getJumlahSks());
+            hasilPerkuliahanDto.add(h);
         }
-        khs.setHasilPerkuliahanDto(hasilPerkuliahanDto);
+        khs.setHasilPerkuliahan(hasilPerkuliahanDto);
 
 
+        LOG.info(krs.toJsonString());
         ctx.getStub().putState(krsId, krs.getJsonStringBytes());
+        LOG.info(khs.toJsonString());
         ctx.getStub().putState(khsId, khs.getJsonStringBytes());
     }
     @Transaction
@@ -110,13 +116,17 @@ public class PerkuliahanContract implements ContractInterface{
                          double nilai
     ) {
         Khs khs = Khs.fromJSONString(ctx.getStub().getState(khsId));
-        for(HasilPerkuliahanDto h : khs.getHasilPerkuliahanDto()) {
+        double ip = 0;
+        for(HasilPerkuliahanDto h : khs.getHasilPerkuliahan()) {
             if(kuliahId.equals(h.getKuliahId())) {
                 h.setNilai(nilai);
-                break;
             }
+            ip += h.getNilai();
         }
+        ip = ip / khs.getHasilPerkuliahan().size();
+        khs.setIp(ip);
 
+        LOG.info(khs.toJsonString());
         ctx.getStub().putState(khsId, khs.getJsonStringBytes());
     }
     @Transaction(intent = Transaction.TYPE.EVALUATE)

@@ -1,14 +1,14 @@
 {
   "hasilPerkuliahan": [
     {
-      "kuliahId": "k1",
+      "kuliahId": "uinjkt.kuliah.1",
       "sks": 6,
       "nilai": 3.6
     }
   ],
   "semester": 1,
   "jumlahSks": "6",
-  "ip": "6",
-  "mahasiswaId": "m1",
-  "krsId": "m1"
+  "ip": 3.6,
+  "mahasiswaId": "uinjkt.mhs.1",
+  "krsId": "uinjkt.krs.1"
 }

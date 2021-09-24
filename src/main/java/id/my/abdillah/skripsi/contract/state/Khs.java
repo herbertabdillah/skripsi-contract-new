@@ -16,7 +16,7 @@ import java.util.ArrayList;
 @EqualsAndHashCode(callSuper=false)
 public class Khs extends BaseState {
     @Property
-    private ArrayList<HasilPerkuliahanDto> hasilPerkuliahanDto;
+    private ArrayList<HasilPerkuliahanDto> hasilPerkuliahan;
 
     @Property
     private int semester;

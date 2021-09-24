@@ -34,11 +34,11 @@ public final class PerkuliahanContractTest {
         ChaincodeStub stub = mock(ChaincodeStub.class);
         when(ctx.getStub()).thenReturn(stub);
 
-        String perkuliahanId = "uinjkt.fakultas.123qwe.programstudi.123qwe.perkuliahan.123qwe";
-        String programStudiId = "uinjkt.fakultas.123qwe.programstudi.123qwe";
+        String perkuliahanId = "uinjkt.kuliah.1";
+        String programStudiId = "uinjkt.prodi.1";
         String nama = "Dasar dasar pemrograman";
         String kode = "IF001";
-        String dosenId = "uinjkt.dosen.123qwe";
+        String dosenId = "uinjkt.dosen.1";
         String tahunAjaran = "2021/2022";
         int semester = 1;
         int jumlahSks = 6;
@@ -57,15 +57,15 @@ public final class PerkuliahanContractTest {
         ChaincodeStub stub = mock(ChaincodeStub.class);
         when(ctx.getStub()).thenReturn(stub);
 
-        String kuliahId = "k1";
+        String kuliahId = "uinjkt.kuliah.1";
         Perkuliahan perkuliahan = Perkuliahan.fromJSONString(IOUtils.toString(this.getClass().getResourceAsStream("/Perkuliahan01.json"), BaseState.CHARSET));
         when(ctx.getStub().getState(kuliahId)).thenReturn(perkuliahan.getJsonStringBytes());
 
         String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         int semester = 1;
-        String mahasiswaId = "m1";
-        String kuliahIdJson = "[\"k1\"]";
-        String krsId = "krs." + mahasiswaId + "." + Integer.toString(semester);
+        String mahasiswaId = "uinjkt.mhs.1";
+        String kuliahIdJson = "[\"uinjkt.kuliah.1\"]";
+        String krsId = "uinjkt.krs.1";
 
         String krsRawJson = IOUtils.toString(this.getClass().getResourceAsStream("/Krs02.json"), BaseState.CHARSET);
         Krs krs = Krs.fromJSONString(krsRawJson);
@@ -82,9 +82,9 @@ public final class PerkuliahanContractTest {
         Context ctx = mock(Context.class);
         ChaincodeStub stub = mock(ChaincodeStub.class);
         when(ctx.getStub()).thenReturn(stub);
-        String mahasiswaId = "m1";
+        String mahasiswaId = "uinjkt.mhs.1";
         int semester = 1;
-        String krsId = "krs." + mahasiswaId + "." + Integer.toString(semester);
+        String krsId = "uinjkt.krs.1";
         String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 
         String krsJsonRawBelumSetuju = IOUtils.toString(this.getClass().getResourceAsStream("/Krs02.json"), BaseState.CHARSET);
@@ -99,6 +99,10 @@ public final class PerkuliahanContractTest {
 //        System.out.println(krsJsonSetuju);
 
         when(stub.getState(krsId)).thenReturn(krsJsonBelumSetuju.getBytes(UTF_8));
+        String kuliahId = "uinjkt.kuliah.1";
+        String kuliahJsonRaw = IOUtils.toString(this.getClass().getResourceAsStream("/Perkuliahan01.json"), BaseState.CHARSET);
+        Perkuliahan perkuliahan = Perkuliahan.fromJSONString(kuliahJsonRaw);
+        when(stub.getState(kuliahId)).thenReturn(perkuliahan.getJsonStringBytes());
         perkuliahanContract.setujuiKrs(ctx, krsId);
 
         ArrayList<HasilPerkuliahanDto> hasilPerkuliahanDto = new ArrayList<>();
@@ -110,25 +114,53 @@ public final class PerkuliahanContractTest {
             h.setSks(p.getJumlahSks());
         }
         Khs khs = new Khs();
-        String khsId = "asdf";
+        String khsId = "uinjkt.khs.1";
         khs.setKrsId(krsId);
         khs.setSemester(krsSetuju.getSemester());
         khs.setJumlahSks(krsSetuju.getJumlahSks());
         khs.setMahasiswaId(krsSetuju.getMahasiswaId());
 
+        String khsJsonRaw = IOUtils.toString(this.getClass().getResourceAsStream("/Khs02.json"), BaseState.CHARSET);
+        String khsJson = Khs.fromJSONString(khsJsonRaw).toJsonString();
         verify(stub).putState(krsId, krsJsonSetuju.getBytes(UTF_8));
-        verify(stub).putState(khsId, krsJsonSetuju.getBytes(UTF_8));
+        verify(stub).putState(khsId, khsJson.getBytes(UTF_8));
     }
 
+    @Test
+    public void nilaiKhs() throws IOException {
+        Context ctx = mock(Context.class);
+        ChaincodeStub stub = mock(ChaincodeStub.class);
+        when(ctx.getStub()).thenReturn(stub);
+
+        String khsId = "uinjkt.khs.1";
+
+        String khsJsonRaw = IOUtils.toString(this.getClass().getResourceAsStream("/Khs02.json"), BaseState.CHARSET);
+        Khs khsSebelumNilai = Khs.fromJSONString(khsJsonRaw);
+
+        when(stub.getState(khsId)).thenReturn(khsSebelumNilai.getJsonStringBytes());
+
+        Khs khs = new Khs();
+//        String khsId = "uinjkt.khs.1";
+        String kuliahId = "uinjkt.kuliah.1";
+        double nilai = 3.6;
+
+        PerkuliahanContract  perkuliahanContract = new PerkuliahanContract();
+        perkuliahanContract.nilaiKhs(ctx, khsId, kuliahId, nilai);
+
+        String khsNilaiJsonRaw = IOUtils.toString(this.getClass().getResourceAsStream("/Khs01.json"), BaseState.CHARSET);
+        String khsNilaiJson = Khs.fromJSONString(khsNilaiJsonRaw).toJsonString();
+
+        verify(stub).putState(khsId, khsNilaiJson.getBytes(UTF_8));
+    }
     @Test
     public void lihatKrs() throws IOException {
         PerkuliahanContract perkuliahanContract = new PerkuliahanContract();
         Context ctx = mock(Context.class);
         ChaincodeStub stub = mock(ChaincodeStub.class);
         when(ctx.getStub()).thenReturn(stub);
-        String mahasiswaId = "m1";
+        String mahasiswaId = "uinjkt.mhs.1";
         int semester = 1;
-        String krsId = "krs." + mahasiswaId + "." + Integer.toString(semester);
+        String krsId = "uinjkt.krs.1";
 
         String krsJson = IOUtils.toString(this.getClass().getResourceAsStream("/Krs02.json"), BaseState.CHARSET);
 

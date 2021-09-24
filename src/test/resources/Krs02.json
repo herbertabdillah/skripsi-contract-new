@@ -1,11 +1,11 @@
 {
   "kuliahId": [
-    "k1"
+    "uinjkt.kuliah.1"
   ],
   "semester": 1,
   "jumlahSks": "6",
   "disetujuiDosenPa": false,
   "tanggalDiajukan": "29/6/2021",
   "tanggalDisetujui": "",
-  "mahasiswaId": "m1"
+  "mahasiswaId": "uinjkt.mhs.1"
 }

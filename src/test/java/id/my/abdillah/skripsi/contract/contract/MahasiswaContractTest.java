@@ -24,9 +24,9 @@ public final class MahasiswaContractTest {
         ChaincodeStub stub = mock(ChaincodeStub.class);
         when(ctx.getStub()).thenReturn(stub);
 
-        String mahasiswaId = "uinjkt.mahasiswa.123qwe";
-        String programStudiId = "uinjkt.fakultas.123qwe.programstudi.123qwe";
-        String dosenPaId = "uinjkt.dosen.123qwe";
+        String mahasiswaId = "uinjkt.mhs.1";
+        String programStudiId = "uinjkt.prodi.1";
+        String dosenPaId = "uinjkt.dosen.1";
         String status = "AKTIF";
         int tahunMasuk = 2017;
 
