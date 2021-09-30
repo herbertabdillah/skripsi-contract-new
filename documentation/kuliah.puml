@@ -12,33 +12,61 @@ entity      KHS      as khs
 
 mhs -> perkuliahan : ajukanKrs()
 activate perkuliahan
+
 perkuliahan -> bc : getMahasiswa
 bc -> mhsState
 bc -> perkuliahan
 perkuliahan -> perkuliahan : verifikasiMahasiswa
-perkuliahan -> perkuliahan : verifikasiIpk
 
 perkuliahan -> bc : getPerkuliahan
+bc -> perkuliahanState
 bc -> perkuliahan
 perkuliahan -> perkuliahan : verifikasiPerkuliahan
 
-perkuliahan -> bc : writeKhs
+perkuliahan -> bc : writeKrs
+bc -> krs
 perkuliahan -> mhs
 deactivate perkuliahan
 '============================================
 dosen -> perkuliahan : setujuiKrs()
 activate perkuliahan
 
-perkuliahan -> bc : getPerkuliahan
+perkuliahan -> bc : getDosen
+bc -> dosenState
 bc -> perkuliahan
-perkuliahan -> perkuliahan : verifikasiPerkuliahan
+perkuliahan -> perkuliahan : verifikasiDosen
+
+perkuliahan -> bc : getKrs
+bc -> krs
+bc -> perkuliahan
 
 perkuliahan -> bc : writeKrs
+bc -> krs
+
+perkuliahan -> bc : writeKhs
+bc -> khs
+
 perkuliahan -> dosen
 deactivate perkuliahan
+
 '============================================
 dosen -> perkuliahan : nilaiPerkuliahan()
 activate perkuliahan
+
+perkuliahan -> bc : getKhs
+bc -> khs
+bc -> perkuliahan
+
+perkuliahan -> perkuliahan : verifikasiTanggalPengisian
+
+perkuliahan -> bc : getDosen
+bc -> dosenState
+bc -> perkuliahan
+perkuliahan -> perkuliahan : verifikasiDosen
+
+perkuliahan -> bc : writeKhs
+bc -> khs
+
 perkuliahan -> dosen
 deactivate perkuliahan
 
