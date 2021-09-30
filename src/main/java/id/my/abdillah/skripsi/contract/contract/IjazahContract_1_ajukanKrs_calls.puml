@@ -1,0 +1,114 @@
+@startuml
+
+/' diagram meta data start
+config=CallConfiguration;
+{
+  "rootMethod": "id.my.abdillah.skripsi.contract.contract.IjazahContract#ajukanKrs(Context,String,String)",
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": ""
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false // root node is included
+  },
+  "details": {
+    "aggregation": "None", // ByClass, GroupByClass, None
+    "showMethodParametersTypes": true,
+    "showMethodParametersNames": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 4,
+    "showCallOrder": true,
+    "edgeMode": "MethodsOnly", // TypesOnly, MethodsOnly, TypesAndMethods, MethodsAndDirectTypeUsage
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "id.my.abdillah.skripsi.contract.contract.IjazahContract"
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="LR"
+    splines=polyline
+    
+
+'nodes 
+IjazahContract1074917221XXXajukanKrs1813327833[
+	label="+ ajukanKrs(ctx: Context, mahasiswaId: String, kuliahIdJson: String)"
+	tooltip="IjazahContract
+
+null"
+	penwidth=4
+	fontcolor=darkgreen
+];
+
+Krs644628706XXXparseKuliahId1706651217[
+	label="+ parseKuliahId(ja: JSONArray)"
+	tooltip="Krs
+
+null"
+	fontcolor=darkgreen
+];
+
+Krs644628706XXXparseKuliahId1808118735[
+	label="+ parseKuliahId(kuliahIdJson: String)"
+	tooltip="Krs
+
+null"
+	fontcolor=darkgreen
+];
+
+'edges    
+IjazahContract1074917221XXXajukanKrs1813327833 -> Krs644628706XXXparseKuliahId1808118735[label=3];
+Krs644628706XXXparseKuliahId1808118735 -> Krs644628706XXXparseKuliahId1706651217[label=1];
+    
+}
+@enduml

@@ -1,0 +1,123 @@
+@startuml
+
+/' diagram meta data start
+config=CallConfiguration;
+{
+  "rootMethod": "id.my.abdillah.skripsi.contract.contract.IjazahContract#setujuiKrs(Context,String)",
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": ""
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false // root node is included
+  },
+  "details": {
+    "aggregation": "None", // ByClass, GroupByClass, None
+    "showMethodParametersTypes": true,
+    "showMethodParametersNames": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 4,
+    "showCallOrder": true,
+    "edgeMode": "MethodsOnly", // TypesOnly, MethodsOnly, TypesAndMethods, MethodsAndDirectTypeUsage
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "id.my.abdillah.skripsi.contract.contract.IjazahContract"
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="LR"
+    splines=polyline
+    
+
+'nodes 
+BaseState644628706XXXfromJSONString1011600940[
+	label="+ fromJSONString(type: Class<T>, bytes: byte[]): T"
+	tooltip="BaseState
+
+null"
+	fontcolor=darkgreen
+];
+
+BaseState644628706XXXfromJSONString577490931[
+	label="+ fromJSONString(type: Class<T>, json: String): T"
+	tooltip="BaseState
+
+null"
+	fontcolor=darkgreen
+];
+
+IjazahContract1074917221XXXsetujuiKrs406701772[
+	label="+ setujuiKrs(ctx: Context, krsId: String)"
+	tooltip="IjazahContract
+
+null"
+	penwidth=4
+	fontcolor=darkgreen
+];
+
+Krs644628706XXXfromJSONString1374008726[
+	label="+ fromJSONString(bytes: byte[]): Krs"
+	tooltip="Krs
+
+null"
+	fontcolor=darkgreen
+];
+
+'edges    
+BaseState644628706XXXfromJSONString1011600940 -> BaseState644628706XXXfromJSONString577490931[label=0];
+IjazahContract1074917221XXXsetujuiKrs406701772 -> Krs644628706XXXfromJSONString1374008726[label=0];
+Krs644628706XXXfromJSONString1374008726 -> BaseState644628706XXXfromJSONString1011600940[label=0];
+    
+}
+@enduml

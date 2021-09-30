@@ -1,0 +1,48 @@
+@startuml
+actor       Mahasiswa       as mhs
+actor       Employer       as emp
+'participant FE.BE.DB as mid
+participant IjazahContract as ijazah
+database    Blockchain      as bc
+entity      Ijazah      as ijazahState
+entity      Akses      as accessState
+entity      Log      as logState
+database    PrivateData      as pd
+entity      PrivateData      as pdState
+'============================================
+mhs -> ijazah : beriAkses()
+activate ijazah
+ijazah -> bc : writeAkses
+bc -> accessState
+ijazah -> mhs : tokenAkses
+deactivate ijazah
+
+'============================================
+mhs -> emp : tokenAkses
+'============================================
+
+emp -> ijazah : verifikasiIjazah()
+activate ijazah
+ijazah -> bc : readAkses
+bc -> accessState
+bc -> ijazah
+ijazah -> ijazah : verifikasiAkses
+
+ijazah -> bc : readIjazah
+bc -> ijazahState
+bc -> ijazah
+
+ijazah -> pd : readPrivateData
+pd -> pdState
+pd -> ijazah
+
+ijazah -> bc : writeLog
+bc -> logState
+bc -> ijazah
+
+ijazah -> emp
+deactivate ijazah
+
+
+
+@enduml

@@ -16,8 +16,13 @@ import java.util.ArrayList;
 @EqualsAndHashCode(callSuper=false)
 public class IjazahLog extends BaseState {
     @Property
-    private ArrayList<String> kuliahId;
+    private String akunId;
 
+    @Property
+    private String tanggal;
+
+    @Property
+    private String mahasiswaId;
 
     public static IjazahLog fromJSONString(byte[] bytes) {
         return fromJSONString(IjazahLog.class, bytes);

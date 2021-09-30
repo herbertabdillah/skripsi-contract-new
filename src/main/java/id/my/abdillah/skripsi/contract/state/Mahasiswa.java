@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.hyperledger.fabric.contract.annotation.DataType;
 import org.hyperledger.fabric.contract.annotation.Property;
 
+import java.util.ArrayList;
+
 @DataType
 @Data
 @NoArgsConstructor
@@ -23,6 +25,9 @@ public class Mahasiswa extends BaseState {
 
     @Property
     private int tahunMasuk;
+
+    @Property
+    ArrayList<String> krsId;
 
     public static Mahasiswa fromJSONString(byte[] bytes) {
         return fromJSONString(Mahasiswa.class, bytes);

@@ -1,0 +1,45 @@
+@startuml
+actor       Mahasiswa       as mhs
+actor       Dosen       as dosen
+'participant FE.BE.DB as mid
+participant PerkuliahanContract as perkuliahan
+database    Blockchain      as bc
+entity      Mahasiswa      as mhsState
+entity      Dosen      as dosenState
+entity      Perkuliahan      as perkuliahanState
+entity      KRS      as krs
+entity      KHS      as khs
+
+mhs -> perkuliahan : ajukanKrs()
+activate perkuliahan
+perkuliahan -> bc : getMahasiswa
+bc -> mhsState
+bc -> perkuliahan
+perkuliahan -> perkuliahan : verifikasiMahasiswa
+perkuliahan -> perkuliahan : verifikasiIpk
+
+perkuliahan -> bc : getPerkuliahan
+bc -> perkuliahan
+perkuliahan -> perkuliahan : verifikasiPerkuliahan
+
+perkuliahan -> bc : writeKhs
+perkuliahan -> mhs
+deactivate perkuliahan
+'============================================
+dosen -> perkuliahan : setujuiKrs()
+activate perkuliahan
+
+perkuliahan -> bc : getPerkuliahan
+bc -> perkuliahan
+perkuliahan -> perkuliahan : verifikasiPerkuliahan
+
+perkuliahan -> bc : writeKrs
+perkuliahan -> dosen
+deactivate perkuliahan
+'============================================
+dosen -> perkuliahan : nilaiPerkuliahan()
+activate perkuliahan
+perkuliahan -> dosen
+deactivate perkuliahan
+
+@enduml
