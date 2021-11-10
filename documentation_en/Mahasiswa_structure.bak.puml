@@ -1,0 +1,325 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": ""
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false // root node is included
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "id.my.abdillah.skripsi.contract.state.Mahasiswa"
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_3500 { 
+   	label=my
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_847892209 { 
+   	label=abdillah
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   BaseState644628706[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BaseState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   id: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(type: Class&lt;T&gt;, bytes: byte[]): T</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(type: Class&lt;T&gt;, json: String): T</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toJsonString(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Dosen644628706[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Dosen</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   aktif: Boolean [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(bytes: byte[]): Dosen</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(raw: String): Dosen</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+HasilPerkuliahanDto1640906836[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)HasilPerkuliahanDto</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   kuliahId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nilai: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   sks: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(json: String): List&lt;HasilPerkuliahanDto&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toJsonString(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Ijazah644628706[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Ijazah</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   disetujuiDosenPa: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   jumlahSks: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   kuliahId: ArrayList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mahasiswaId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   semester: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tanggalDiajukan: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tanggalDisetujui: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(bytes: byte[]): Ijazah</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(raw: String): Ijazah</TD></TR>
+<TR><TD ALIGN="LEFT" >+ parseKuliahId(kuliahIdJson: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ parseKuliahId(ja: JSONArray)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+IjazahAkses644628706[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)IjazahAkses</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   akunId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mahasiswaId: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(bytes: byte[]): IjazahAkses</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(raw: String): IjazahAkses</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+IjazahLog644628706[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)IjazahLog</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   akunId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mahasiswaId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tanggal: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(bytes: byte[]): IjazahLog</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(raw: String): IjazahLog</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Khs644628706[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Khs</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   hasilPerkuliahan: ArrayList&lt;HasilPerkuliahanDto&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ip: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   jumlahSks: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   krsId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mahasiswaId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   semester: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(bytes: byte[]): Khs</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(raw: String): Khs</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Krs644628706[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Krs</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   disetujuiDosenPa: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   jumlahSks: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   kuliahId: ArrayList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mahasiswaId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   semester: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tanggalDiajukan: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tanggalDisetujui: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(bytes: byte[]): Krs</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(raw: String): Krs</TD></TR>
+<TR><TD ALIGN="LEFT" >+ parseKuliahId(kuliahIdJson: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ parseKuliahId(ja: JSONArray)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Mahasiswa644628706[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Mahasiswa</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   dosenPaId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   krsId: ArrayList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   programStudiId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   status: StatusMahasiswa [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tahunMasuk: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(bytes: byte[]): Mahasiswa</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(raw: String): Mahasiswa</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Perkuliahan644628706[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Perkuliahan</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   dosenId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   jumlahSks: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   kode: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nama: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   programStudiId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   semester: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tahunAjaran: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(bytes: byte[]): Perkuliahan</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(raw: String): Perkuliahan</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ProgramStudi644628706[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ProgramStudi</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   fakultas: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   kepalaProgramStudiId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nama: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(bytes: byte[]): ProgramStudi</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fromJSONString(raw: String): ProgramStudi</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+BaseState644628706 -> Dosen644628706[arrowhead=none, arrowtail=empty, dir=both];
+BaseState644628706 -> Ijazah644628706[arrowhead=none, arrowtail=empty, dir=both];
+BaseState644628706 -> IjazahAkses644628706[arrowhead=none, arrowtail=empty, dir=both];
+BaseState644628706 -> IjazahLog644628706[arrowhead=none, arrowtail=empty, dir=both];
+BaseState644628706 -> Khs644628706[arrowhead=none, arrowtail=empty, dir=both];
+BaseState644628706 -> Krs644628706[arrowhead=none, arrowtail=empty, dir=both];
+BaseState644628706 -> Mahasiswa644628706[arrowhead=none, arrowtail=empty, dir=both];
+BaseState644628706 -> Perkuliahan644628706[arrowhead=none, arrowtail=empty, dir=both];
+BaseState644628706 -> ProgramStudi644628706[arrowhead=none, arrowtail=empty, dir=both];
+Khs644628706 -> HasilPerkuliahanDto1640906836[label="hasilPerkuliahan
+[0..*]"];
+    
+}
+@enduml
