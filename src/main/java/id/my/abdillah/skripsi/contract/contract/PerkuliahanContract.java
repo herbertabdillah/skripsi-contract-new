@@ -1,15 +1,14 @@
 package id.my.abdillah.skripsi.contract.contract;
 
 import id.my.abdillah.skripsi.contract.dto.HasilPerkuliahanDto;
-import id.my.abdillah.skripsi.contract.state.Khs;
-import id.my.abdillah.skripsi.contract.state.Krs;
-import id.my.abdillah.skripsi.contract.state.Perkuliahan;
+import id.my.abdillah.skripsi.contract.state.*;
 import org.hyperledger.fabric.contract.Context;
 import org.hyperledger.fabric.contract.ContractInterface;
 import org.hyperledger.fabric.contract.annotation.Contract;
 import org.hyperledger.fabric.contract.annotation.Default;
 import org.hyperledger.fabric.contract.annotation.Transaction;
 
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -148,5 +147,68 @@ public class PerkuliahanContract implements ContractInterface{
         Perkuliahan perkuliahan = Perkuliahan.fromJSONString(ctx.getStub().getState(perkuliahanId));
 
         return perkuliahan;
+    }
+
+    @Transaction(intent = Transaction.TYPE.EVALUATE)
+    public Attendance getAttendance(Context ctx, String attendanceId) {
+        Attendance attendance = Attendance.fromJSONString(ctx.getStub().getState(attendanceId));
+
+        return attendance;
+    }
+    @Transaction(intent = Transaction.TYPE.EVALUATE)
+    public Grade getGrade(Context ctx, String gradeId) {
+        Grade grade = Grade.fromJSONString(ctx.getStub().getState(gradeId));
+
+        return grade;
+    }
+
+    @Transaction
+    public void addAttendance(Context ctx,
+                                  int studentId,
+                                  boolean attended,
+                                  int weekNumber
+    ) {
+        String attendanceId = "attendance." + Integer.toString(studentId) + "." + Integer.toString(weekNumber);
+
+        Attendance attendance = new Attendance();
+        attendance.setAttended(attended);
+        attendance.setStudentId(studentId);
+        attendance.setWeekNumber(weekNumber);
+
+        ctx.getStub().putState(attendanceId, attendance.getJsonStringBytes());
+    }
+
+    @Transaction
+    public void addGrade(Context ctx,
+                              int studentId,
+                              boolean graduated
+    ) {
+        String gradeId = "grade." + Integer.toString(studentId);
+
+        // validation
+        int notAttendedCount = 0;
+        for(int i = 1; i <= 12; i++) {
+            String attendanceId = "attendance." + Integer.toString(studentId) + "." + i;
+            byte[] attendanceByte = ctx.getStub().getState(attendanceId);
+            if(attendanceByte == null) {
+                break;
+            }
+            String attendanceString = new String(attendanceByte, StandardCharsets.UTF_8);
+            if(attendanceString == null || attendanceString.length() == 0) {
+                break;
+            }
+            Attendance attendance = Attendance.fromJSONString(attendanceString);
+            if(!attendance.isAttended()) notAttendedCount++;
+            if(notAttendedCount == 3) {
+                return;
+            }
+
+        }
+
+        Grade grade = new Grade();
+        grade.setStudentId(studentId);
+        grade.setGraduated(graduated);
+
+        ctx.getStub().putState(gradeId, grade.getJsonStringBytes());
     }
 }
