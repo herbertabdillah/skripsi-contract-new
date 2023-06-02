@@ -1,4 +1,4 @@
-package id.my.abdillah.skripsi.contract.contract.master;
+package id.my.abdillah.skripsi.contract.contract._old;
 
 
 import id.my.abdillah.skripsi.contract.contract.master.ProgramStudiContract;

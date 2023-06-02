@@ -1,5 +1,4 @@
-package id.my.abdillah.skripsi.contract.contract.master;
-
+package id.my.abdillah.skripsi.contract.contract._old;
 
 import id.my.abdillah.skripsi.contract.contract.master.MahasiswaContract;
 import id.my.abdillah.skripsi.contract.state.BaseState;
@@ -8,9 +7,7 @@ import org.apache.commons.io.IOUtils;
 import org.hyperledger.fabric.contract.Context;
 import org.hyperledger.fabric.shim.ChaincodeStub;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
-
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;

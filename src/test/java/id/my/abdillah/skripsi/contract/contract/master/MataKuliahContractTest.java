@@ -5,31 +5,30 @@ import id.my.abdillah.skripsi.contract.state.MataKuliah;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 
+@SuppressWarnings("unused")
 public final class MataKuliahContractTest extends BaseTest {
-    private MataKuliahContract mataKuliahContract;
+    private MataKuliahContract contract;
+    private String stateJson = readFile("/master/MataKuliah01.json");
 
     @BeforeEach
     public void beforeEach() {
         super.beforeEach();
-        mataKuliahContract = new MataKuliahContract();
+        contract = new MataKuliahContract();
     }
 
     @Test
-    public void tambahMataKuliah() {
-        String mataKuliahJson = MataKuliah.fromJSONString(readFile("/MataKuliah01.json")).toJsonString();
+    public void insert() {
+        verifyPutState("MataKuliah.1", stateJson);
 
-        verifyPutState(stub, "MataKuliah.1", mataKuliahJson);
-
-        mataKuliahContract.tambahMataKuliah(ctx, "1", "2", "Dasar dasar pemrograman", 6);
+        contract.insert(ctx, "1", "2", "Dasar dasar pemrograman", 6);
     }
 
     @Test
-    public void lihatMataKuliah() {
-        when(stub.getState("MataKuliah.1")).thenReturn(readFileBytes("/MataKuliah01.json"));
-        MataKuliah mataKuliah = MataKuliah.fromJSONString(readFile("/MataKuliah01.json"));
+    public void get() {
+        whenGetState("MataKuliah.1").thenReturn(stateJson);
+        MataKuliah mataKuliah = MataKuliah.fromJSONString(stateJson);
 
-        assertEquals(mataKuliahContract.lihatMataKuliah(ctx, "1"), mataKuliah);
+        assertEquals(contract.get(ctx, "1"), mataKuliah);
     }
 }

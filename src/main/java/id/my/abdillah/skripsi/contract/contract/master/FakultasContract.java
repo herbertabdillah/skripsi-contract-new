@@ -1,7 +1,7 @@
 package id.my.abdillah.skripsi.contract.contract.master;
 
 import id.my.abdillah.skripsi.contract.contract.BaseContract;
-import id.my.abdillah.skripsi.contract.state.MataKuliah;
+import id.my.abdillah.skripsi.contract.state.Fakultas;
 import org.hyperledger.fabric.contract.Context;
 import org.hyperledger.fabric.contract.ContractInterface;
 import org.hyperledger.fabric.contract.annotation.Contract;
@@ -12,27 +12,23 @@ import java.util.logging.Logger;
 
 @Contract(name = "PerkuliahanContract")
 @Default
-public class MataKuliahContract extends BaseContract implements ContractInterface{
-    private final static Logger LOG = Logger.getLogger(MataKuliahContract.class.getName());
-    public MataKuliahContract(){}
+public class FakultasContract extends BaseContract implements ContractInterface{
+    private final static Logger LOG = Logger.getLogger(FakultasContract.class.getName());
+    public FakultasContract(){}
     @Transaction
     public void insert(Context ctx,
                        String id,
-                       String programStudiId,
-                       String nama,
-                       int jumlahSks
+                       String nama
     ) {
-        MataKuliah mataKuliah = MataKuliah.builder()
-                .jumlahSks(jumlahSks)
-                .programStudiId(programStudiId)
+        Fakultas fakultas = Fakultas.builder()
                 .nama(nama)
                 .build();
 
-        putState(ctx, id, mataKuliah);
+        putState(ctx, id, fakultas);
     }
 
     @Transaction(intent = Transaction.TYPE.EVALUATE)
-    public MataKuliah get(Context ctx, String id) {
-        return getState(ctx, id, MataKuliah.class);
+    public Fakultas get(Context ctx, String id) {
+        return getState(ctx, id, Fakultas.class);
     }
 }
