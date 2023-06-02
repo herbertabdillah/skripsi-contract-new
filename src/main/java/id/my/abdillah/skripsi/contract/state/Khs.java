@@ -19,12 +19,6 @@ public class Khs extends BaseState {
     private ArrayList<HasilPerkuliahanDto> hasilPerkuliahan;
 
     @Property
-    private int semester;
-
-    @Property
-    private int jumlahSks;
-
-    @Property
     private double ip;
 
     @Property

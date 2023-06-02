@@ -11,18 +11,14 @@ import org.hyperledger.fabric.contract.annotation.Property;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
-public class Grade extends BaseState {
+public class Fakultas extends BaseState {
     @Property
-    private int studentId;
+    private String nama;
 
-    @Property
-    private boolean graduated;
-
-    public static Grade fromJSONString(byte[] bytes) {
-        return fromJSONString(Grade.class, bytes);
+    public static Fakultas fromJSONString(byte[] bytes) {
+        return fromJSONString(Fakultas.class, bytes);
     }
-    public static Grade fromJSONString(String raw) {
-        return fromJSONString(Grade.class, raw);
+    public static Fakultas fromJSONString(String raw) {
+        return fromJSONString(Fakultas.class, raw);
     }
 }
-

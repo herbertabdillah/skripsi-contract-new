@@ -43,23 +43,6 @@ public class BaseState {
         return t;
     }
 
-//    public <T extends BaseModel> T fromJSONString(byte[] bytes) {
-//        return fromJSONString(new String(bytes, CHARSET));
-//    }
-//
-//    public <T extends BaseModel> T fromJSONString(String json) {
-//        ObjectMapper om = new ObjectMapper();
-//        T t = null;
-//        Class<T> c = (Class<T>) this.getClass();
-//        try {
-//            t =  om.readValue(json, c);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//        JSONObject krsJo = new JSONObject(json);
-//        return t;
-//    }
-
     @JsonIgnore
     public byte[] getJsonStringBytes() {
         return toJsonString().getBytes(CHARSET);

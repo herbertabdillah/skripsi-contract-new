@@ -1,6 +1,7 @@
-package id.my.abdillah.skripsi.contract.contract;
+package id.my.abdillah.skripsi.contract.contract.master;
 
 
+import id.my.abdillah.skripsi.contract.contract.master.DosenContract;
 import id.my.abdillah.skripsi.contract.state.BaseState;
 import id.my.abdillah.skripsi.contract.state.Dosen;
 import org.apache.commons.io.IOUtils;

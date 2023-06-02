@@ -1,4 +1,4 @@
-package id.my.abdillah.skripsi.contract.contract;
+package id.my.abdillah.skripsi.contract.contract.master;
 
 import id.my.abdillah.skripsi.contract.dto.StatusMahasiswa;
 import id.my.abdillah.skripsi.contract.state.Dosen;

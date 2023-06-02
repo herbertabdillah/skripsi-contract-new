@@ -1,8 +1,8 @@
-package id.my.abdillah.skripsi.contract.contract;
+package id.my.abdillah.skripsi.contract.contract.master;
 
 
+import id.my.abdillah.skripsi.contract.contract.master.MahasiswaContract;
 import id.my.abdillah.skripsi.contract.state.BaseState;
-import id.my.abdillah.skripsi.contract.state.Dosen;
 import id.my.abdillah.skripsi.contract.state.Mahasiswa;
 import org.apache.commons.io.IOUtils;
 import org.hyperledger.fabric.contract.Context;

@@ -1,4 +1,4 @@
-package id.my.abdillah.skripsi.contract.contract;
+package id.my.abdillah.skripsi.contract.contract.master;
 
 import id.my.abdillah.skripsi.contract.state.Dosen;
 import id.my.abdillah.skripsi.contract.state.Krs;
@@ -17,7 +17,7 @@ public class DosenContract implements ContractInterface{
                           String dosenId
     ) {
         Dosen dosen = new Dosen();
-        dosen.setAktif(true);
+//        dosen.setAktif(true);
 
         ctx.getStub().putState(dosenId, dosen.getJsonStringBytes());
     }

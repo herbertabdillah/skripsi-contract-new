@@ -12,25 +12,16 @@ import org.hyperledger.fabric.contract.annotation.Property;
 @EqualsAndHashCode(callSuper=false)
 public class Perkuliahan extends BaseState {
     @Property
-    private String programStudiId;
+    private String mataKuliahId;
 
     @Property
-    private String kode;
-
-    @Property
-    private String nama;
-
-    @Property
-    private String dosenId;
+    private int tahun;
 
     @Property
     private int semester;
 
     @Property
-    private String tahunAjaran;
-
-    @Property
-    private int jumlahSks;
+    private String dosenId;
 
     public static Perkuliahan fromJSONString(byte[] bytes) {
         return fromJSONString(Perkuliahan.class, bytes);

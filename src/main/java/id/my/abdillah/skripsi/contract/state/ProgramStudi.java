@@ -16,10 +16,7 @@ public class ProgramStudi extends BaseState {
     private String nama;
 
     @Property
-    private String fakultas;
-
-    @Property
-    private String kepalaProgramStudiId;
+    private String fakultasId;
 
     public static ProgramStudi fromJSONString(byte[] bytes) {
         return fromJSONString(ProgramStudi.class, bytes);

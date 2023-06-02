@@ -1,6 +1,5 @@
 package id.my.abdillah.skripsi.contract.state;
 
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -11,21 +10,20 @@ import org.hyperledger.fabric.contract.annotation.Property;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
-public class Attendance extends BaseState {
+public class MataKuliah extends BaseState {
     @Property
-    private int studentId;
+    private String programStudiId;
 
     @Property
-    private int weekNumber;
+    private String nama;
 
     @Property
-    private boolean attended;
+    private int jumlahSks;
 
-    public static Attendance fromJSONString(byte[] bytes) {
-        return fromJSONString(Attendance.class, bytes);
+    public static MataKuliah fromJSONString(byte[] bytes) {
+        return fromJSONString(MataKuliah.class, bytes);
     }
-    public static Attendance fromJSONString(String raw) {
-        return fromJSONString(Attendance.class, raw);
+    public static MataKuliah fromJSONString(String raw) {
+        return fromJSONString(MataKuliah.class, raw);
     }
 }
-

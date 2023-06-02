@@ -1,4 +1,4 @@
-package id.my.abdillah.skripsi.contract.contract;
+package id.my.abdillah.skripsi.contract.contract.master;
 
 import id.my.abdillah.skripsi.contract.state.Dosen;
 import id.my.abdillah.skripsi.contract.state.ProgramStudi;
@@ -14,17 +14,15 @@ public class ProgramStudiContract implements ContractInterface{
     public ProgramStudiContract(){}
     @Transaction
     public void tambahProgramStudi(Context ctx,
-                                   String programStudiId,
+                                   String id,
                                    String nama,
-                                   String fakultas,
-                                   String kepalaProgramStudiId
+                                   String fakultasId
     ) {
         ProgramStudi programStudi = new ProgramStudi();
-        programStudi.setKepalaProgramStudiId(kepalaProgramStudiId);
-        programStudi.setFakultas(fakultas);
         programStudi.setNama(nama);
+        programStudi.setFakultasId(fakultasId);
 
-        ctx.getStub().putState(programStudiId, programStudi.getJsonStringBytes());
+        ctx.getStub().putState(id, programStudi.getJsonStringBytes());
     }
 
     @Transaction(intent = Transaction.TYPE.EVALUATE)

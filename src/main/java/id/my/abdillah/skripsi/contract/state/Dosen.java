@@ -16,7 +16,10 @@ import java.util.ArrayList;
 @EqualsAndHashCode(callSuper=false)
 public class Dosen extends BaseState {
     @Property
-    private Boolean aktif;
+    private String name;
+
+    @Property
+    private String nik;
 
     public static Dosen fromJSONString(byte[] bytes) {
         return fromJSONString(Dosen.class, bytes);
