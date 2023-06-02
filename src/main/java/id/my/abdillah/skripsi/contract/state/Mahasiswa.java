@@ -1,9 +1,7 @@
 package id.my.abdillah.skripsi.contract.state;
 
 import id.my.abdillah.skripsi.contract.dto.StatusMahasiswa;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hyperledger.fabric.contract.annotation.DataType;
 import org.hyperledger.fabric.contract.annotation.Property;
 
@@ -13,21 +11,26 @@ import java.util.ArrayList;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
+@Builder
+@AllArgsConstructor
 public class Mahasiswa extends BaseState {
     @Property
-    private String dosenPaId;
+    private String nama;
+
+    @Property
+    private String nim;
 
     @Property
     private String programStudiId;
 
     @Property
-    private StatusMahasiswa status;
-
-    @Property
     private int tahunMasuk;
 
     @Property
-    ArrayList<String> krsId;
+    private StatusMahasiswa status;
+
+    @Property
+    private String dosenPembimbingId;
 
     public static Mahasiswa fromJSONString(byte[] bytes) {
         return fromJSONString(Mahasiswa.class, bytes);
@@ -36,4 +39,3 @@ public class Mahasiswa extends BaseState {
         return fromJSONString(Mahasiswa.class, raw);
     }
 }
-

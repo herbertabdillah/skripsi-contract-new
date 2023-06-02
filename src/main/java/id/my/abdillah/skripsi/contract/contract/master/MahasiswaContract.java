@@ -1,8 +1,7 @@
 package id.my.abdillah.skripsi.contract.contract.master;
 
+import id.my.abdillah.skripsi.contract.contract.BaseContract;
 import id.my.abdillah.skripsi.contract.dto.StatusMahasiswa;
-import id.my.abdillah.skripsi.contract.state.Dosen;
-import id.my.abdillah.skripsi.contract.state.Krs;
 import id.my.abdillah.skripsi.contract.state.Mahasiswa;
 import org.hyperledger.fabric.contract.Context;
 import org.hyperledger.fabric.contract.ContractInterface;
@@ -12,29 +11,29 @@ import org.hyperledger.fabric.contract.annotation.Transaction;
 
 @Contract(name = "MahasiswaContract")
 @Default
-public class MahasiswaContract implements ContractInterface{
+public class MahasiswaContract extends BaseContract implements ContractInterface{
     public MahasiswaContract(){}
     @Transaction
-    public void tambahMahasiswa(Context ctx,
-                                String mahasiswaId,
-                                String programStudiId,
-                                String dosenPaId,
-                                String status,
-                                int tahunMasuk
+    public void insert(Context ctx,
+                       String id,
+                       String nama,
+                       String nim,
+                       String programStudiId,
+                       int tahunMasuk,
+                       String status,
+                       String dosenPembimbingId
     ) {
-        Mahasiswa mahasiswa = new Mahasiswa();
-        mahasiswa.setDosenPaId(dosenPaId);
-        mahasiswa.setStatus(StatusMahasiswa.valueOf(status));
-        mahasiswa.setTahunMasuk(tahunMasuk);
-        mahasiswa.setProgramStudiId(programStudiId);
+        Mahasiswa mahasiswa = Mahasiswa.builder()
+                        .nama(nama).nim(nim).programStudiId(programStudiId)
+                        .tahunMasuk(tahunMasuk).dosenPembimbingId(dosenPembimbingId)
+                        .status(StatusMahasiswa.valueOf(status))
+                        .build();
 
-        ctx.getStub().putState(mahasiswaId, mahasiswa.getJsonStringBytes());
+        putState(ctx, id, mahasiswa);
     }
 
     @Transaction(intent = Transaction.TYPE.EVALUATE)
-    public Mahasiswa lihatMahasiswa(Context ctx, String mahasiswaId) {
-        Mahasiswa mahasiswa = Mahasiswa.fromJSONString(ctx.getStub().getState(mahasiswaId));
-
-        return mahasiswa;
+    public Mahasiswa get(Context ctx, String id) {
+        return getState(ctx, id, Mahasiswa.class);
     }
 }

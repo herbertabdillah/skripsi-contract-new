@@ -1,6 +1,6 @@
 package id.my.abdillah.skripsi.contract.contract.master;
 
-import id.my.abdillah.skripsi.contract.state.Dosen;
+import id.my.abdillah.skripsi.contract.contract.BaseContract;
 import id.my.abdillah.skripsi.contract.state.ProgramStudi;
 import org.hyperledger.fabric.contract.Context;
 import org.hyperledger.fabric.contract.ContractInterface;
@@ -10,25 +10,21 @@ import org.hyperledger.fabric.contract.annotation.Transaction;
 
 @Contract(name = "ProgramStudiContract")
 @Default
-public class ProgramStudiContract implements ContractInterface{
+public class ProgramStudiContract extends BaseContract implements ContractInterface{
     public ProgramStudiContract(){}
     @Transaction
-    public void tambahProgramStudi(Context ctx,
+    public void insert(Context ctx,
                                    String id,
                                    String nama,
                                    String fakultasId
     ) {
-        ProgramStudi programStudi = new ProgramStudi();
-        programStudi.setNama(nama);
-        programStudi.setFakultasId(fakultasId);
+        ProgramStudi programStudi = ProgramStudi.builder().nama(nama).fakultasId(fakultasId).build();
 
-        ctx.getStub().putState(id, programStudi.getJsonStringBytes());
+        putState(ctx, id, programStudi);
     }
 
     @Transaction(intent = Transaction.TYPE.EVALUATE)
-    public ProgramStudi lihatProgramStudi(Context ctx, String programStudiId) {
-        ProgramStudi programStudi = ProgramStudi.fromJSONString(ctx.getStub().getState(programStudiId));
-
-        return programStudi;
+    public ProgramStudi get(Context ctx, String id) {
+        return getState(ctx, id, ProgramStudi.class);
     }
 }

@@ -1,22 +1,18 @@
 package id.my.abdillah.skripsi.contract.state;
 
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hyperledger.fabric.contract.annotation.DataType;
 import org.hyperledger.fabric.contract.annotation.Property;
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 
 @DataType
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
+@Builder
+@AllArgsConstructor
 public class Dosen extends BaseState {
     @Property
-    private String name;
+    private String nama;
 
     @Property
     private String nik;
